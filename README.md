@@ -1,5 +1,8 @@
 # 📈 Earnings Event Analyzer
 
+## Demo
+https://github.com/user-attachments/assets/b6c7d2ad-007a-455f-909a-9d6536cfc16e
+
 **PySpark-Based Earnings Event Analysis Pipeline**
 
 Analyzes how stock prices, volume, and volatility react around earnings announcements.
@@ -21,16 +24,15 @@ Users enter a ticker on the web dashboard and instantly see historical event pat
 ---
 
 ## Architecture
-
 ```
 Yahoo Finance / SEC EDGAR
         │
         ▼
   PySpark Pipeline
-  ├── 01_ingest.py        raw → bronze
-  ├── 02_clean.py         bronze → silver
-  ├── 03_event_windows.py explode(sequence)
-  ├── 04_sessionize.py    Window + cumsum
+  ├── 01_ingest.py         raw → bronze
+  ├── 02_clean.py          bronze → silver
+  ├── 03_event_windows.py  explode(sequence)
+  ├── 04_sessionize.py     Window + cumsum
   └── 05_cohort_metrics.py groupBy + Window
         │
         ▼
@@ -43,34 +45,33 @@ Yahoo Finance / SEC EDGAR
 ---
 
 ## Quick Start
-
 ```bash
-git clone https://github.com/YOUR_USERNAME/earnings-event-analyzer
+git clone https://github.com/jj4335/earnings-event-analyzer
 cd earnings-event-analyzer
 pip install -r requirements.txt
 
 # Run full pipeline
-python spark_jobs/01_ingest.py
-python spark_jobs/02_clean.py
-python spark_jobs/03_event_windows.py
-python spark_jobs/04_sessionize.py
+export PYSPARK_PYTHON=/opt/anaconda3/bin/python3.13
+export PYSPARK_DRIVER_PYTHON=/opt/anaconda3/bin/python3.13
+export PYTHONPATH=.
+python spark_jobs/01_ingest.py && \
+python spark_jobs/02_clean.py && \
+python spark_jobs/03_event_windows.py && \
+python spark_jobs/04_sessionize.py && \
 python spark_jobs/05_cohort_metrics.py
 
-# Start API
-uvicorn backend.api_server:app --reload
-
-# Start dashboard
-cd frontend/dashboard && npm install && npm start
+# Start API + Dashboard
+./run.sh
 ```
 
 ---
 
 ## Stack
 
-- **Pipeline**: PySpark 4.x, Parquet
+- **Pipeline**: PySpark 3.5, Parquet
 - **API**: FastAPI
 - **Frontend**: React + Recharts
-- **Data**: Yahoo Finance API, SEC EDGAR
+- **Data**: Yahoo Finance API
 
 ---
 

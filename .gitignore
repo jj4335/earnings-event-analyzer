@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Spark
+spark-warehouse/
+derby.log
+metastore_db/
+*.crc
+
+# Data (raw files — too large for git)
+data/raw/
+data/bronze/
+data/silver/
+data/gold/
+*.parquet
+*.jsonl
+*.csv
+
+# Notebooks
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+frontend/dashboard/build/
+frontend/dashboard/.env.local
